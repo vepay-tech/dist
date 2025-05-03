@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Blog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="homepage">
+        <h1>Travel Destinations</h1>
+
+        <div class="number-block" id="block1" onclick="showDestinations(1)">1</div>
+        <div class="number-block" id="block2" onclick="showDestinations(2)">2</div>
+        <div class="number-block" id="block3" onclick="showDestinations(3)">3</div>
+        <div class="number-block" id="block4" onclick="showDestinations(4)">4</div>
+
+        <div id="destinations">
+            </div>
+    </div>
+
+    <div id="travel-stories">
+        <h2>Travel Stories</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Destination</th>
+                    <th>Attraction</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Paris</td>
+                    <td><img src="paris.jpg" alt="Eiffel Tower" onclick="showInfo('paris')"></td>
+                </tr>
+                <tr>
+                    <td>Rome</td>
+                    <td><img src="rome.jpg" alt="Colosseum" onclick="showInfo('rome')"></td>
+                </tr>
+                <tr>
+                    <td>New York</td>
+                    <td><img src="newyork.jpg" alt="Statue of Liberty" onclick="showInfo('newyork')"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="info">
+            </div>
+    </div>
+
+
+    <script>
+        function showDestinations(blockNumber) {
+            const destinationsDiv = document.getElementById("destinations");
+            destinationsDiv.innerHTML = ""; // Clear previous content
+
+            let destinations = {};
+
+            if (blockNumber === 1) {
+                destinations = {
+                  "Europe": {
+                    "France": ["Paris", "Nice", "Lyon"],
+                    "Italy": ["Rome", "Florence", "Venice"],
+                    "Greece": ["Athens", "Santorini", "Mykonos"]
+                  }
+                };
+            } else if (blockNumber === 2) {
+                destinations = {
+                  "Asia": {
+                    "Japan": ["Tokyo", "Kyoto", "Osaka"],
+                    "China": ["Beijing", "Shanghai", "Xi'an"],
+                    "India": ["New Delhi", "Mumbai", "Jaipur"]
+                  }
+                };
+            } else if (blockNumber === 3) {
+                destinations = {
+                  "America": {
+                    "USA": ["New York City", "Los Angeles", "Chicago"],
+                    "Brazil": ["Rio de Janeiro", "São Paulo", "Salvador"],
+                    "Canada": ["Toronto", "Vancouver", "Montreal"]
+                  }
+                };
+            } else if (blockNumber === 4) {
+              destinations = {
+                "Africa": {
+                  "South Africa": ["Cape Town", "Johannesburg", "Durban"],
+                  "Egypt": ["Cairo", "Luxor", "Sharm El Sheikh"],
+                  "Morocco": ["Marrakech", "Casablanca", "Fez"]
+                }
+              };
+            }
+
+
+            for (const continent in destinations) {
+                const continentHeading = document.createElement("h2");
+                continentHeading.textContent = continent;
+                destinationsDiv.appendChild(continentHeading);
+
+                for (const country in destinations[continent]) {
+                    const countryHeading = document.createElement("h3");
+                    countryHeading.textContent = country;
+                    destinationsDiv.appendChild(countryHeading);
+
+                    const cityList = document.createElement("ul");
+                    for (const city of destinations[continent][country]) {
+                        const cityItem = document.createElement("li");
+                        cityItem.textContent = city;
+                        cityList.appendChild(cityItem);
+                    }
+                    destinationsDiv.appendChild(cityList);
+                }
+            }
+        }
+
+        function showInfo(location) {
+          const infoDiv = document.getElementById("info");
+          infoDiv.innerHTML = "";  // Clear previous content
+
+          let infoText = "";
+
+          if (location === "paris") {
+            infoText = "Paris is the capital and most populous city of France, with an estimated population of 2,161,060 residents in 2022..."; // Add info
+          } else if (location === "rome") {
+            infoText = "Rome is the capital city of Italy. It is also the capital of the Lazio region, the largest city in the country... "; // Add info
+          } else if (location === "newyork") {
+            infoText = "New York City is a global hub of culture, finance, and media, and is the most populous city in the United States... "; // Add info
+          }
+
+          const infoParagraph = document.createElement("p");
+          infoParagraph.textContent = infoText;
+          infoDiv.appendChild(infoParagraph);
+        }
+    </script>
+
+</body>
+</html>
